@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css?family=Arya');
+@import url('https://fonts.googleapis.com/css?family=ABeeZee');
+* {
+    outline: none;
+}
+
+body {
+    background-size: 100% 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.bg {
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    right: -50%;
+    bottom: -50%;
+    width: 200%;
+    height: 200vh;
+    background: transparent url('http://assets.iceable.com/img/noise-transparent.png') repeat 0 0;
+    background-repeat: repeat;
+    animation: bg-animation .2s infinite;
+    opacity: .9;
+    visibility: visible;
+    z-index: -2;
+  }
+  
+  @keyframes bg-animation {
+      0% { transform: translate(0,0) }
+      10% { transform: translate(-5%,-5%) }
+      20% { transform: translate(-10%,5%) }
+      30% { transform: translate(5%,-10%) }
+      40% { transform: translate(-5%,15%) }
+      50% { transform: translate(-10%,5%) }
+      60% { transform: translate(15%,0) }
+      70% { transform: translate(0,10%) }
+      80% { transform: translate(-15%,0) }
+      90% { transform: translate(10%,5%) }
+      100% { transform: translate(5%,0) }
+  }
+
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.centered {
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 10px;
+    text-align: center;
+}
+
+.login {
+    background: #f3c5ba;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.699);
+    font-family: Arya, sans-serif;
+    font-size: 20px;
+    transition-duration: 0.5s;
+    margin: 0 auto;
+  }
+
+.login:hover{
+    background-color: #000000;
+    color: white;
+}
+
+.input-label {
+    text-align: left;
+    font-family: ABeeZee, sans-serif;
+    margin-right: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.nameInput{
+    padding: 10px;
+    border: 1px solid #070707;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #fff;
+    color: #333;
+    width: 200px;
+}
+
+.nameInput:focus {
+    border-color: #f3c5ba; 
+    box-shadow: 0 0 5px rgba(43, 43, 43, 0.5);
+}
+
+.drag-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 25px; 
+    background-color: #1a1a1b94; 
+    -webkit-app-region: drag;
+}
+
+.centered-text {
+    position: absolute;
+    top: 50%;
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    text-shadow: rgb(0, 0, 0) 2px 2px 2px;
+}
+
+.error-message {
+    display: none;
+    color: red;
+    font-size: 12px;
+}

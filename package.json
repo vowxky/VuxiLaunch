@@ -1,8 +1,9 @@
 {
   "name": "vuxilaunch",
+  "path": "vuxiLaunch",
   "version": "1.0.0",
   "description": "A launcher created based on the Minecraft Java Core library",
-  "main": "index.js",
+  "main": "./src/loginWindow.js",
   "scripts": {
     "start": "cross-env-shell NODE_ENV=dev electron .",
     "dev": "nodemon --exec npm start"
@@ -24,6 +25,7 @@
   },
   "dependencies": {
     "axios": "^1.5.1",
+    "discord-rpc": "^4.0.1",
     "minecraft-java-core": "^3.7.2"
   }
 }
