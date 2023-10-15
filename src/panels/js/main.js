@@ -8,6 +8,7 @@ class index {
     async main() {
         this.init();
         this.requestData();
+        this.requestAxios();
     }
 
     async requestData(){
@@ -18,9 +19,23 @@ class index {
         });
     }
 
+    async requestAxios(){
+
+    }
+
     async init() {
         vuxiLogger.initLogWindow('Main');
+
+        document.getElementById('close').addEventListener('click', () => {
+            ipcRenderer.send('close-window');
+        });
+
+        document.getElementById('minimize').addEventListener('click', () => {
+            ipcRenderer.send('minimize-window')
+        });
     }
+
+
 
 }
 

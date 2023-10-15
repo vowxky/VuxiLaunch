@@ -125,10 +125,6 @@ app.whenReady().then(() => {
     secondaryWindow.setProgressBar(0);
   });
 
-  ipcMain.on('close', (evt, arg) => {
-    secondaryWindow.close();
-  });
-
   ipcMain.on('re-open', (evt, arg) => {
     mainWindow.close();
     createWindow({
@@ -145,6 +141,14 @@ app.whenReady().then(() => {
 
   ipcMain.on('show-window', (evt, arg) => {
     secondaryWindow.show();
+  });
+
+  ipcMain.on('close-window', (evt, arg) => {
+    secondaryWindow.close();
+  });
+
+  ipcMain.on('minimize-window', (evt, arg) => {
+    secondaryWindow.minimize();
   });
 
   ipcMain.on('change-status-discord', (event, DiscordStatus)=> {

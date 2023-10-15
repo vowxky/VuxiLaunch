@@ -1,0 +1,323 @@
+@import url('https://fonts.googleapis.com/css?family=Angkor');
+
+body {
+    background-size: 100% 100vh;
+    background-image: url(../../assets/background/Background.png);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.settings-btn {
+    position: relative;
+    border: 5px solid #ffffff;
+    margin-top: 550px;
+    width: 80px;
+    cursor: pointer;
+    height: 80px;
+    background-color: #f8f9f91f;
+    border-radius: 100%
+}
+
+.settings-btn .image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0px;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background-image: url(../../assets/buttons/config.png);
+    background-size: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 1;
+    transition: transform .7s ease-in-out;
+}
+  
+.settings-btn:hover .image-overlay {
+    transform: rotate(360deg);
+}
+  
+.settings-btn:hover button {
+    border: none;
+}
+
+
+.profile {
+    position: relative;
+    border: 5px solid #ffffff;
+    cursor: pointer;
+    width: 80px;
+    height: 80px;
+    background-color: #f8f9f91f;
+    border-radius: 100%;
+}
+  
+.profile button {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform .7s ease-in-out , border 8s ease-in-out;
+}
+  
+.profile .image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0px;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background-image: url(../../assets/buttons/profile.png);
+    background-size: 80%;
+    border-radius: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 1;
+    transition: transform .5s ease;
+}
+  
+.profile:hover .image-overlay {
+    transform: rotate(360deg);
+    transform: scale(0.7);
+}
+  
+.profile:hover button {
+    border: none;
+}
+  
+
+.play-btn {
+    position: relative;
+    cursor: pointer;
+    border: 5px solid #ffffff;
+    border-radius: 50px;
+    width: 500px;
+    height: 80px;
+    background-color: #f8f9f91f;
+}
+  
+.play-btn button {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform .7s ease-in-out , border 8s ease-in-out;
+}
+  
+.play-btn .text-overlay {
+    position: absolute;
+    z-index: 2;
+    letter-spacing: 5px;
+    width: 100%;
+    height: auto;
+    font-family: Ramabhadra, sans-serif;
+    text-align: center;
+    font-size: 50px;
+    color: rgb(250, 250, 250);
+    background-size: 70%;
+    border-radius: 10px;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 1;
+    line-height: 80px;
+    transition: letter-spacing 0.3s ease-in-out;
+}
+  
+.play-btn .text-overlay::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 7px;
+    bottom: 0;
+    top : 130px;
+    left: 0;
+    background-color: #ffffff;
+    transform-origin: bottom right;
+    transition: transform 0.50s ease-out;
+}
+  
+
+.play-btn:hover .text-overlay {
+    letter-spacing: 10px;
+}
+  
+.play-btn:hover button {
+    border: none;
+}
+  
+
+.download-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.text-download,
+.progress-bar {
+    display: none;
+}
+
+.text-download {
+    font-size: 15px;
+}
+
+.progress-bar {
+    background-color: transparent;
+    margin-top: 23px;
+    width: 100%;
+    height: 30px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.progress-bar::-webkit-progress-bar {
+    background-color: #050505;
+}
+
+.progress-bar::-webkit-progress-value {
+    background-color: #00bd7a;
+}
+
+.body-home {
+    display: flex;
+    height: 78vh;
+    margin: 3rem 2rem;
+}
+
+.settings-btn:not(:last-child),
+.profile:not(:last-child),
+.play-btn:not(:last-child){
+  margin-right: 26px;
+  margin-top: 550px;
+}
+
+.card {
+    width: 400px;
+    margin-top: -700px;
+    margin-left: 990px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.644);
+    position: relative;
+    display: none;
+    place-content: center;
+    place-items: center;
+    overflow: hidden;
+    border-radius: 20px;
+    opacity: 0;
+    -webkit-transition: opacity 2s ease-in-out;
+    -moz-transition: opacity 2s ease-in-out;
+    transition: opacity 2s ease-in-out;
+  }
+  
+  .card .textoverlay {
+    z-index: 1;
+    color: white;
+    font-size: 1.5em;
+  }
+  
+  .card::before {
+    content: '';
+    position: absolute;
+    width: 100vh;
+    background-image: linear-gradient(200deg, rgb(118, 80, 255),rgb(89, 202, 187));
+    height: 100vh;
+    animation: rotBGimg 3s linear infinite;
+    transition: all 0.2s linear;
+  }
+  
+  @keyframes rotBGimg {
+    from {
+      transform: rotate(0deg);
+    }
+  
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .card::after {
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.644);
+    inset: 5px;
+    border-radius: 15px;
+  }  
+  
+.drag-bar-main {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 25px; 
+    background-color: #1a1a1b5e; 
+    -webkit-app-region: drag;
+    justify-content: space-between; 
+}
+
+.centered-text-main {
+    position: absolute;
+    font-family: verdana;
+    top: 50%;
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    letter-spacing: 5px;
+    color: rgba(255, 255, 255, 0.637);
+    text-shadow: rgba(0, 0, 0, 0.61) 2px 2px 2px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.minimize {
+    background-color: #1b1b1b85;
+    color: #FFF;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    font-family: "Segoe MDL2 Assets";
+    z-index: 5;
+    -webkit-app-region: no-drag;
+    transition-duration: 0.5s;
+}
+
+
+.close {
+    background-color: #1b1b1b85;
+    color: #FFF;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    font-family: "Segoe MDL2 Assets";
+    z-index: 5;
+    -webkit-app-region: no-drag;
+    transition-duration: 0.5s;
+}
+
+.minimize:hover {
+    background-color: #0c8383;
+}
+
+.close:hover {
+    background-color: #8a0a0a;
+}
