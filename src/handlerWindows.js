@@ -16,6 +16,10 @@ let mainWindow = null;
 let pathFolderName = pkg['path'];
 
 
+let sharedData = {
+  username: '',
+};
+
 function createFolder() {
   if (!fs.existsSync(appdataPath)) {
     fs.mkdirSync(appdataPath);
@@ -84,15 +88,13 @@ RPC.on('ready', async () => {
       });
   }
 }
-  app.whenReady().then(() => {
+app.whenReady().then(() => {
 
     appdataPath = path.join(process.env.APPDATA, `.${pathFolderName}`);
 
     createFolder(appdataPath);
     
-    setTimeout(() => {
-      createWindow({ url: './src/panels/html/login.html' });
-    }, 2000);
+    createWindow({ url: './src/panels/html/login.html' });
   
     app.on('activate', () => {
       if (mainWindow === null) {
@@ -107,16 +109,14 @@ RPC.on('ready', async () => {
     }
   });
 
-  ipcMain.on('save-account', (event, account) => {
-    windowauth.account = account;
+  ipcMain.on('guardar-datos', (event, data) => {
+    sharedData = data;
   });
 
-
-  ipcMain.on('solicitar-cuenta', (event) => {
-    event.sender.send('responder-cuenta', windowauth.account);
+  ipcMain.on('obtener-datos', (event) => {
+    event.sender.send('datos-obtenidos', sharedData);
   });
-
-
+  
   ipcMain.on('set-progress-bar', (event, percentage) => {
     secondaryWindow.setProgressBar(percentage)
   });
@@ -132,7 +132,7 @@ RPC.on('ready', async () => {
   ipcMain.on('re-open', (evt, arg) => {
     mainWindow.close();
     createWindow({
-      url: './src/home.html', 
+      url: './src/panels/html/main.html', 
       secondary: true,
       width: 1200, 
       height: 700, 
@@ -165,5 +165,4 @@ RPC.on('ready', async () => {
         }
       ]
     });
-
   })

@@ -3,9 +3,11 @@
   "path": "vuxiLaunch",
   "version": "1.0.0",
   "description": "A launcher created based on the Minecraft Java Core library",
-  "main": "./src/loginWindow.js",
+  "main": "./src/handlerWindows.js",
   "scripts": {
     "start": "cross-env-shell NODE_ENV=dev electron .",
+    "build": "electron-builder",
+    "test": "electron .",
     "dev": "nodemon --exec npm start"
   },
   "repository": {
@@ -21,11 +23,22 @@
   "devDependencies": {
     "cross-env": "^7.0.3",
     "electron": "^26.3.0",
+    "electron-builder": "^24.6.4",
     "nodemon": "^3.0.1"
   },
   "dependencies": {
+    "ansi-colors": "^4.1.3",
     "axios": "^1.5.1",
     "discord-rpc": "^4.0.1",
     "minecraft-java-core": "^3.7.2"
+  },
+  "build": {
+    "appId": "Vowxky",
+    "asar": true,
+    "win": {
+      "artifactName": "${productName}_${version}.${ext}",
+      "target": "NSIS",
+      "icon": "./src/assets/icon/icon.ico"
+    }
   }
 }

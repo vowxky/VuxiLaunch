@@ -1,4 +1,6 @@
 const { ipcRenderer } = require("electron");
+const vuxiLogger = require('../js/util/logger');
+process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
 class Login{
     async main(){
@@ -6,6 +8,7 @@ class Login{
     }
     async login(){
         const input = document.getElementById('nameInput');
+        vuxiLogger.initLogWindow('Login');
         input.addEventListener('input', (event) => {
             let inputValue = event.target.value;
     
@@ -33,7 +36,10 @@ class Login{
             if (sanitizedValue.length >= 3 && sanitizedValue.length <= 16) {
                 ipcRenderer.send('re-open');
                 ipcRenderer.send('change-status-discord', 'Esperando en el Menu');
-            } else {
+                ipcRenderer.send('guardar-datos', {
+                    username: inputValue
+                });            
+                } else {
                 input.value = '';
                 input.disabled = true;
                 errorMessage.style.display = "block";
