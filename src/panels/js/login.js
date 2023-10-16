@@ -1,5 +1,6 @@
 const { ipcRenderer } = require("electron");
 const vuxiLogger = require('../js/util/logger');
+const dataManager = require('../js/util/vuxiDB');
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
 class Login{
@@ -36,9 +37,15 @@ class Login{
             if (sanitizedValue.length >= 3 && sanitizedValue.length <= 16) {
                 ipcRenderer.send('re-open');
                 ipcRenderer.send('change-status-discord', 'Esperando en el Menu');
-                ipcRenderer.send('guardar-datos', {
-                    username: inputValue
-                });            
+                const newData = { username: inputValue ,isLogged: true};
+
+                dataManager.updateData('vuxilaunch_data', newData, (err) => {
+                if (err) {
+                    console.error('Error al actualizar el archivo JSON:', err);
+                } else {
+                    console.log('Archivo JSON actualizado con éxito.');
+                }}); 
+                           
                 } else {
                 input.value = '';
                 input.disabled = true;

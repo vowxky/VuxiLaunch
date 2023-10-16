@@ -1,42 +1,47 @@
 const { ipcRenderer } = require("electron");
 const vuxiLogger = require('../js/util/logger');
+const dataManager = require('../js/util/vuxiDB');
+
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
-
-let username
-
 
 class index {
     async main() {
         this.init();
         this.profileSkin();
     }
-    async profileSkin(){
-        ipcRenderer.send('obtener-datos');
-        ipcRenderer.on('datos-obtenidos', (event, data) => {
-        username = data.username;
-
-        const usernameElement = document.getElementById('username');
-
-        usernameElement.innerHTML = username;
-        
-        let skinViewer = new skinview3d.SkinViewer({
-            canvas: document.getElementById("skinContainer"),
-            width: 300,
-            height: 400,
-            skin: "https://minotar.net/skin/" + username,
-            zoom: 0.8,
+    async profileSkin() {
+        dataManager.getData('vuxilaunch_data', (err, data) => {
+          if (err) {
+            console.error('Error al obtener los datos:', err);
+          } else {
+            if (data && data.username !== undefined) {
+              const savedUsername = data.username;
+      
+              const usernameElement = document.getElementById('username');
+      
+              usernameElement.innerHTML = savedUsername;
+      
+              let skinViewer = new skinview3d.SkinViewer({
+                canvas: document.getElementById('skinContainer'),
+                width: 300,
+                height: 400,
+                skin: 'https://minotar.net/skin/' + savedUsername,
+                zoom: 0.8,
+              });
+      
+              skinViewer.loadCape(null);
+      
+              skinViewer.zoom = 1;
+      
+              skinViewer.animation = new skinview3d.WalkingAnimation();
+      
+              skinViewer.animation.speed = 1;
+            } else {
+              console.log('El valor de "username" no se encuentra en los datos.');
+            }
+          }
         });
-        
-        skinViewer.loadCape(null);    
-        
-        skinViewer.zoom = 1;
-                
-        skinViewer.animation = new skinview3d.WalkingAnimation();
-        
-        skinViewer.animation.speed = 1;    
-        });
-    }
-
+      }
     async init() {
         const homeContent = document.getElementById('home-content');
         const profileContent = document.getElementById('profile-content');
@@ -63,6 +68,14 @@ class index {
 
         document.getElementById('log-profile').addEventListener('click', () => {
             ipcRenderer.send('re-open-login');
+            const newData = { username: '' ,isLogged: false};
+            dataManager.updateData('vuxilaunch_data', newData, (err) => {
+                if (err) {
+                    console.error('Error al actualizar el archivo JSON:', err);
+                } else {
+                    console.log('Archivo JSON actualizado con éxito.');
+                }
+            });  
         })
     }
 

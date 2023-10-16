@@ -1,4 +1,5 @@
 const {app, BrowserWindow} = require('electron');
+const dataHandler = require('./panels/js/util/vuxiDB');
 const pkg = require('../package.json');
 const path = require('path');
 const fs = require('fs');
@@ -14,11 +15,6 @@ let secondaryWindow = null;
 let mainWindow = null;
 
 let pathFolderName = pkg['path'];
-
-
-let sharedData = {
-  username: '',
-};
 
 function createFolder() {
   if (!fs.existsSync(appdataPath)) {
@@ -93,14 +89,56 @@ app.whenReady().then(() => {
     appdataPath = path.join(process.env.APPDATA, `.${pathFolderName}`);
 
     createFolder(appdataPath);
+
+  const newData = { username: '', isLogged: false };
+  dataHandler.addData('vuxilaunch_data', newData, (err) => {
+    if (err) {
+      console.error('Error al agregar datos:', err);
+    } else {
+      console.log('Datos agregados con exito.');
+    }
+  });
+
+  setTimeout(() => {
+    dataHandler.getData('vuxilaunch_data', (err, data) => {
+      if (err) {
+        console.error('Error al obtener los datos:', err);
+      } else {
+        if (data && data.isLogged !== undefined) {
+          const isLogged = data.isLogged;
     
-    createWindow({ url: './src/panels/html/login.html' });
+          if (isLogged) {
+            createWindow({
+              url: './src/panels/html/main.html', 
+              secondary: true,
+              width: 1200, 
+              height: 700, 
+            });
+            app.on('activate', () => {
+              if (mainWindow === null) {
+                createWindow({
+                  url: './src/panels/html/main.html', 
+                  secondary: true,
+                  width: 1200, 
+                  height: 700, 
+                });            
+              }
+            });        
+          } else {
+            createWindow({ url: './src/panels/html/login.html' });
   
-    app.on('activate', () => {
-      if (mainWindow === null) {
-        createWindow({ url: './src/panels/html/login.html' });
+            app.on('activate', () => {
+              if (mainWindow === null) {
+                createWindow({ url: './src/panels/html/login.html' });
+              }
+            });
+          }
+        } else {
+          console.log('El valor de "isLogged" no se encuentra en los datos.');
+        }
       }
     });
+  }, 500);
   });
   
   app.on('window-all-closed', () => {
@@ -108,15 +146,7 @@ app.whenReady().then(() => {
       app.quit();
     }
   });
-
-  ipcMain.on('guardar-datos', (event, data) => {
-    sharedData = data;
-  });
-
-  ipcMain.on('obtener-datos', (event) => {
-    event.sender.send('datos-obtenidos', sharedData);
-  });
-  
+   
   ipcMain.on('set-progress-bar', (event, percentage) => {
     secondaryWindow.setProgressBar(percentage)
   });
