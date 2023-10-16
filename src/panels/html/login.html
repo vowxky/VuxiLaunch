@@ -5,7 +5,8 @@
     <title>Login</title>
 </head>
 <body>
-    <div class="bg"></div>
+    <div class="bg">
+    </div>
     <div class="drag-bar">
         <span class="centered-text">Vuxis Launch</span>
     </div>
@@ -17,6 +18,19 @@
               <span class="error-message" id="errorMessage">El nombre de usuario debe tener entre 3 y 16 caracteres.</span>
               <button class="login" id="login">Ingresar</button>
             </div>
+          </div>
+          <div class="lc">
+            <button class="microsoft"> Microsoft </button>
+            <script>
+                const microsoftB = document.querySelectorAll(".microsoft");
+        
+                microsoftB.forEach(function(boton) {
+                    boton.addEventListener("click", function() {
+                        alert("Esta función aún no está implementada");
+                    });
+                });
+            </script>
+
           </div>
     </div>
     <script src="../js/login.js"></script>

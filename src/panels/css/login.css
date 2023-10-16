@@ -22,15 +22,15 @@ body {
     bottom: -50%;
     width: 200%;
     height: 200vh;
-    background: transparent url('http://assets.iceable.com/img/noise-transparent.png') repeat 0 0;
-    background-repeat: repeat;
-    animation: bg-animation .1s infinite;
+    background: transparent url('https://wallpapercave.com/wp/wp4073802.jpg');
+    /*background-repeat: repeat;*/
+    /*animation: bg-animation .1s infinite;*/
     opacity: .9;
     visibility: visible;
     z-index: -2;
   }
   
-  @keyframes bg-animation {
+  /*@keyframes bg-animation {
       0% { transform: translate(0,0) }
       10% { transform: translate(-5%,-5%) }
       20% { transform: translate(-10%,5%) }
@@ -42,7 +42,7 @@ body {
       80% { transform: translate(-15%,0) }
       90% { transform: translate(10%,5%) }
       100% { transform: translate(5%,0) }
-  }
+  }*/
 
 
 .container {
@@ -50,6 +50,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    box-shadow: rgba(2, 1, 1, 0.918) 0px 0px 0px 2px, rgba(19, 37, 58, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
 
 .centered {
@@ -60,18 +61,28 @@ body {
 }
 
 .login {
-    background: #f3c5ba;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-align: center;
-    font-weight: bold;
-    color: rgba(0, 0, 0, 0.699);
-    font-family: Arya, sans-serif;
-    font-size: 20px;
-    transition-duration: 0.5s;
-    margin: 0 auto;
-  }
 
+  background: linear-gradient(to bottom right, #cfbd6e, #FF9A5A);
+  border: 0;
+  border-radius: 12px;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 2.5;
+  outline: transparent;
+  padding: 0 1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .2s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+}
+  
 .login:hover{
     background-color: #000000;
     color: white;
@@ -97,7 +108,7 @@ body {
     border: 1px solid #070707;
     border-radius: 5px;
     font-size: 16px;
-    background-color: #fff;
+    background-color: #0a0909;
     color: #333;
     width: 200px;
 }
@@ -131,4 +142,28 @@ body {
     display: none;
     color: red;
     font-size: 12px;
+
+}
+
+
+.microsoft {
+    background: linear-gradient(to bottom right, #1f3646, #FF9A5A);
+    border: 0;
+    border-radius: 12px;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 2.5;
+    outline: transparent;
+    padding: 0 1rem;
+    text-align: center;
+    text-decoration: none;
+    transition: box-shadow .2s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
 }

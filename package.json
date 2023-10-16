@@ -10,6 +10,9 @@
     "test": "electron .",
     "dev": "nodemon --exec npm start"
   },
+  "nodemonConfig": {
+    "ext": "js,html,css"
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vowxky/VuxiLaunch.git"
