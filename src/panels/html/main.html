@@ -13,11 +13,12 @@
             <button class="close" id="close">&#xE8BB;</button>
         </div>
     </div>
-    
-    <div class="home-content">
+  
+
+    <div class="home-content" id="home-content">
         <div class="buttons">
     
-            <div class="profile">
+            <div class="profile" id="profile">
                 <div class="image-overlay"></div>
             </div>
     
@@ -41,6 +42,24 @@
           
         </div>
     </div>
+
+
+    <div class="container-profile" id="profile-content">
+        <div class="skin-card">
+            <button class="close-button" id="close-profile">X</button>
+            <div class="user-info">
+                <span class="username" id="username">Nombre de Usuario</span>
+                <button class="log" id="log-profile">Logear</button>
+            </div>
+            <div class="skin-viewer">
+                <canvas id="skinContainer"></canvas>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="../lib/skinview3d/skinview3d.bundle.js"></script>
+    <script src="../lib/base64/base64.js"></script>
     <script src="../js/main.js"></script>
 </body>
 </html>

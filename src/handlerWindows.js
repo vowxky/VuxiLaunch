@@ -135,6 +135,16 @@ app.whenReady().then(() => {
     });
   });
 
+  ipcMain.on('re-open-login', (evt, arg) => {
+    secondaryWindow.close();
+    createWindow({
+      url: './src/panels/html/login.html', 
+      secondary: false,
+      width: 450, 
+      height: 600, 
+    });
+  });
+
   ipcMain.on('hide-window', (evt, arg) => {
     secondaryWindow.hide();
   });
@@ -150,6 +160,8 @@ app.whenReady().then(() => {
   ipcMain.on('minimize-window', (evt, arg) => {
     secondaryWindow.minimize();
   });
+
+  
 
   ipcMain.on('change-status-discord', (event, DiscordStatus)=> {
     RPC.setActivity({
