@@ -1,5 +1,6 @@
 const {app, BrowserWindow} = require('electron');
 const dataHandler = require('./panels/js/util/vuxiDB');
+const { Microsoft } = require('minecraft-java-core');
 const pkg = require('../package.json');
 const path = require('path');
 const fs = require('fs');
@@ -75,6 +76,7 @@ async function setActivity() {
       }
   });
 }
+
 RPC.on('ready', async () => {
     setActivity();
  
@@ -85,7 +87,7 @@ RPC.on('ready', async () => {
  RPC.login({ clientId }).catch(err => console.error(err));
  
 
- function createWindow(options) {
+function createWindow(options) {
   const windowauth = {
     titleBarStyle: 'hidden',
     icon : "./src/assets/icon/icon.png",
@@ -116,14 +118,15 @@ RPC.on('ready', async () => {
       });
   }
 }
+
 app.whenReady().then(() => {
 
-    appdataPath = path.join(process.env.APPDATA, `.${pathFolderName}`);
+  appdataPath = path.join(process.env.APPDATA, `.${pathFolderName}`);
 
-    createFolder(appdataPath);
+  createFolder(appdataPath);
 
-  const newData = { username: '', isLogged: false };
-  dataHandler.addData('vuxilaunch_data', newData, (err) => {
+  const newConfigData = {isLogged: false };
+  dataHandler.addData('vuxilaunch_data', newConfigData, (err) => {
     if (err) {
       console.error('Error al agregar datos:', err);
     } else {
@@ -223,6 +226,9 @@ app.whenReady().then(() => {
     secondaryWindow.minimize();
   });
 
+  ipcMain.handle('Microsoft-window', async(event) => {
+    return await new Microsoft('').getAuth();
+  })
   
 
   ipcMain.on('change-status-discord', (event, DiscordStatus)=> {

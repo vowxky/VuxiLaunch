@@ -10,12 +10,12 @@ class index {
         this.profileSkin();
     }
     async profileSkin() {
-        dataManager.getData('vuxilaunch_data', (err, data) => {
+        dataManager.getData('vuxilaunch_profile', (err, data) => {
           if (err) {
             console.error('Error al obtener los datos:', err);
           } else {
-            if (data && data.username !== undefined) {
-              const savedUsername = data.username;
+            if (data && data.name !== undefined) {
+              const savedUsername = data.name;
       
               const usernameElement = document.getElementById('username');
       
@@ -41,7 +41,7 @@ class index {
             }
           }
         });
-      }
+    }
     async init() {
         const homeContent = document.getElementById('home-content');
         const profileContent = document.getElementById('profile-content');
@@ -69,8 +69,16 @@ class index {
         document.getElementById('log-profile').addEventListener('click', () => {
             ipcRenderer.send('re-open-login');
             ipcRenderer.send('change-status-discord', 'Esperando en el Login');
-            const newData = { username: '' ,isLogged: false};
-            dataManager.updateData('vuxilaunch_data', newData, (err) => {
+            const updateData = {
+              access_token :'',
+              client_token :'',
+              uuid: '',
+              name: '',
+              refresh_token: '', 
+              user_properties:'',
+              meta:''
+            };
+            dataManager.updateData('vuxilaunch_profile', updateData, (err) => {
                 if (err) {
                     console.error('Error al actualizar el archivo JSON:', err);
                 } else {
