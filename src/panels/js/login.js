@@ -23,9 +23,9 @@ class Login{
 
         dataManager.addData('vuxilaunch_profile', newDataProfile, (err) => {
           if (err) {
-            console.error('Error al agregar datos:', err);
+            vuxiLogger.error('Error al agregar datos:', err);
           } else {
-            console.log('Datos agregados con exito.');
+            vuxiLogger.info('Datos agregados con exito.');
           }
         });
     }
@@ -75,9 +75,9 @@ class Login{
 
                 dataManager.updateData('vuxilaunch_profile', updateDataProfile, (err) => {
                 if (err) {
-                    console.error('Error al actualizar el archivo JSON:', err);
+                    vuxiLogger.error('Error al actualizar el archivo JSON:', err);
                 } else {
-                    console.log('Archivo JSON actualizado con éxito.');
+                    vuxiLogger.log('Archivo JSON actualizado con éxito.');
                 }}); 
 
                 const updateData = {
@@ -86,9 +86,9 @@ class Login{
 
                 dataManager.updateData('vuxilaunch_data', updateData, (err) => {
                     if (err) {
-                        console.error('Error al actualizar el archivo JSON:', err);
+                        vuxiLogger.error('Error al actualizar el archivo JSON:', err);
                     } else {
-                        console.log('Archivo JSON actualizado con éxito.');
+                        vuxiLogger.info('Archivo JSON actualizado con éxito.');
                 }}); 
                            
                 } else {
@@ -119,9 +119,9 @@ class Login{
                 };
                 dataManager.updateData('vuxilaunch_profile', updateDataProfile, (err) => {
                     if (err) {
-                        console.error('Error al actualizar el archivo JSON:', err);
+                        vuxiLogger.error('Error al actualizar el archivo JSON:', err);
                     } else {
-                        console.log('Archivo JSON actualizado con éxito.');
+                        vuxiLogger.info('Archivo JSON actualizado con éxito.');
                 }}); 
 
                 const updateData = {
@@ -131,9 +131,9 @@ class Login{
                 
                 dataManager.updateData('vuxilaunch_data', updateData, (err) => {
                     if (err) {
-                        console.error('Error al actualizar el archivo JSON:', err);
+                        vuxiLogger.error('Error al actualizar el archivo JSON:', err);
                     } else {
-                        console.log('Archivo JSON actualizado con éxito.');
+                        vuxiLogger.info('Archivo JSON actualizado con éxito.');
                 }}); 
 
                 ipcRenderer.send('re-open');

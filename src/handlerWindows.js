@@ -1,5 +1,6 @@
 const {app, BrowserWindow} = require('electron');
 const dataHandler = require('./panels/js/util/vuxiDB');
+const vuxiLogger = require('./panels/js/util/logger');
 const { Microsoft } = require('minecraft-java-core');
 const pkg = require('../package.json');
 const path = require('path');
@@ -26,7 +27,7 @@ function createFolder() {
 async function setActivity() {
   dataHandler.getData('vuxilaunch_data', (err, data) => {
       if (err) {
-          console.error('Error al obtener los datos:', err);
+          vuxiLogger.error('Error al obtener los datos:', err);
           return;
       }
 
@@ -72,7 +73,7 @@ async function setActivity() {
           });
           }
       } else {
-          console.log('El valor de "isLogged" no se encuentra en los datos o no es válido.');
+        vuxiLogger.info('El valor de "isLogged" no se encuentra en los datos o no es válido.');
       }
   });
 }
@@ -130,14 +131,14 @@ app.whenReady().then(() => {
     if (err) {
       console.error('Error al agregar datos:', err);
     } else {
-      console.log('Datos agregados con exito.');
+      vuxiLogger.info('Datos agregados con exito.');
     }
   });
 
   setTimeout(() => {
     dataHandler.getData('vuxilaunch_data', (err, data) => {
       if (err) {
-        console.error('Error al obtener los datos:', err);
+        vuxiLogger.error('Error al obtener los datos:', err);
       } else {
         if (data && data.isLogged !== undefined) {
           const isLogged = data.isLogged;
@@ -169,7 +170,7 @@ app.whenReady().then(() => {
             });
           }
         } else {
-          console.log('El valor de "isLogged" no se encuentra en los datos.');
+          vuxiLogger.log('El valor de "isLogged" no se encuentra en los datos.');
         }
       }
     });

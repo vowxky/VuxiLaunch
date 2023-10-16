@@ -69,7 +69,7 @@ class index {
         document.getElementById('log-profile').addEventListener('click', () => {
             ipcRenderer.send('re-open-login');
             ipcRenderer.send('change-status-discord', 'Esperando en el Login');
-            const updateData = {
+            const updateDataProfile = {
               access_token :'',
               client_token :'',
               uuid: '',
@@ -78,13 +78,26 @@ class index {
               user_properties:'',
               meta:''
             };
-            dataManager.updateData('vuxilaunch_profile', updateData, (err) => {
+            dataManager.updateData('vuxilaunch_profile', updateDataProfile, (err) => {
                 if (err) {
                     console.error('Error al actualizar el archivo JSON:', err);
                 } else {
                     console.log('Archivo JSON actualizado con éxito.');
                 }
             });  
+
+          const updateData = {
+              isLogged : false
+          };
+
+          
+          dataManager.updateData('vuxilaunch_data', updateData, (err) => {
+              if (err) {
+                  vuxiLogger.error('Error al actualizar el archivo JSON:', err);
+              } else {
+                  vuxiLogger.info('Archivo JSON actualizado con éxito.');
+          }}); 
+
         })
     }
 
