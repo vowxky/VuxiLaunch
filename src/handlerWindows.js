@@ -23,26 +23,58 @@ function createFolder() {
 }
 
 async function setActivity() {
-    if (!RPC) return;
-    RPC.setActivity({
-        details: `Esperando en el Login`,
-        startTimestamp: discordTime,
-        largeImageKey: 'vuxilaunch',
-        largeImageText: `vuxilaunch`,
-        instance: false,
-        buttons: [
-            {
-                label: `Discord`,
-                url: `https://discord.gg/XjPVtkGu`,
-            },
-            {
-                label: `Source Code`,
-                url: `https://github.com/vowxky/VuxiLaunch`,
-            }
-        ]
-    });
- };
+  dataHandler.getData('vuxilaunch_data', (err, data) => {
+      if (err) {
+          console.error('Error al obtener los datos:', err);
+          return;
+      }
 
+      if (data && data.isLogged !== undefined) {
+          const isLogged = data.isLogged;
+
+          if (!RPC) return;
+          if(isLogged){
+            RPC.setActivity({
+              details: `Esperando en el Menu`,
+              startTimestamp: discordTime,
+              largeImageKey: 'vuxilaunch',
+              largeImageText: `vuxilaunch`,
+              instance: false,
+              buttons: [
+                  {
+                      label: `Discord`,
+                      url: `https://discord.gg/XjPVtkGu`,
+                  },
+                  {
+                      label: `Source Code`,
+                      url: `https://github.com/vowxky/VuxiLaunch`,
+                  }
+              ]
+          });
+          }else{
+            RPC.setActivity({
+              details: `Esperando en el Login`,
+              startTimestamp: discordTime,
+              largeImageKey: 'vuxilaunch',
+              largeImageText: `vuxilaunch`,
+              instance: false,
+              buttons: [
+                  {
+                      label: `Discord`,
+                      url: `https://discord.gg/XjPVtkGu`,
+                  },
+                  {
+                      label: `Source Code`,
+                      url: `https://github.com/vowxky/VuxiLaunch`,
+                  }
+              ]
+          });
+          }
+      } else {
+          console.log('El valor de "isLogged" no se encuentra en los datos o no es válido.');
+      }
+  });
+}
 RPC.on('ready', async () => {
     setActivity();
  
@@ -146,7 +178,7 @@ app.whenReady().then(() => {
       app.quit();
     }
   });
-   
+
   ipcMain.on('set-progress-bar', (event, percentage) => {
     secondaryWindow.setProgressBar(percentage)
   });

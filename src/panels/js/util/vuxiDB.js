@@ -1,7 +1,9 @@
 const fs = require('fs');
 const path = require('path');
+const pkg = require('../../../../package.json');
+let pathNameFolder = pkg['name'];
 
-const appdataPath = path.join(process.env.APPDATA, 'vuxilaunch');
+const appdataPath = path.join(process.env.APPDATA, `${pathNameFolder}`);
 
 if (!fs.existsSync(appdataPath)) {
   fs.mkdirSync(appdataPath);

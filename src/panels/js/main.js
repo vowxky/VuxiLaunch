@@ -68,6 +68,7 @@ class index {
 
         document.getElementById('log-profile').addEventListener('click', () => {
             ipcRenderer.send('re-open-login');
+            ipcRenderer.send('change-status-discord', 'Esperando en el Login');
             const newData = { username: '' ,isLogged: false};
             dataManager.updateData('vuxilaunch_data', newData, (err) => {
                 if (err) {
