@@ -13,59 +13,18 @@ process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 class index {
     async main() {
         this.init();
+        this.initBD();
+        this.initSettings();
         this.profileSkin();
         this.launch();
     }
-    async profileSkin() {
-        dataManager.getData('vuxilaunch_profile', (err, data) => {
-          if (err) {
-            console.error('Error al obtener los datos:', err);
-          } else {
-            if (data && data.name !== undefined) {
-              const savedUsername = data.name;
-      
-              const usernameElement = document.getElementById('username');
-      
-              usernameElement.innerHTML = savedUsername;
-      
-              let skinViewer = new skinview3d.SkinViewer({
-                canvas: document.getElementById('skinContainer'),
-                width: 300,
-                height: 400,
-                skin: 'https://minotar.net/skin/' + savedUsername,
-                zoom: 0.8,
-              });
-      
-              skinViewer.loadCape(null);
-      
-              skinViewer.zoom = 1;
-      
-              skinViewer.animation = new skinview3d.WalkingAnimation();
-      
-              skinViewer.animation.speed = 1;
-            } else {
-              console.log('El valor de "username" no se encuentra en los datos.');
-            }
-          }
-        });
-    }
     async init() {
-        const ramSlider = document.getElementById('ramSlider');
-
-        ramSlider.setAttribute('max', roundedMaxValue);
-        const ramValue = document.getElementById('ramValue');
-        const homeContent = document.getElementById('home-content');
-        const body = document.body;
-        const profileContent = document.getElementById('profile-content');
-
         vuxiLogger.initLogWindow('Main');
 
-
-        ramSlider.addEventListener('input', () => {
-            const selectedRamGB = ramSlider.value + ' GB';
-            ramValue.textContent = selectedRamGB;
-            console.log('RAM seleccionada:', selectedRamGB);
-        });
+        const homeContent = document.getElementById('home-content');
+        const settingsContent = document.getElementById('settings-content');
+        const body = document.body;
+        const profileContent = document.getElementById('profile-content');
 
         document.getElementById('close').addEventListener('click', () => {
             ipcRenderer.send('close-window');
@@ -85,7 +44,19 @@ class index {
             profileContent.style.display = "none";
             homeContent.style.display = "block";
             body.style.backdropFilter = "blur(0px)";
-        })
+        });
+
+        document.getElementById('settings').addEventListener('click', () => {
+          body.style.backdropFilter = "blur(5px)";
+          settingsContent.style.display = "block";
+          homeContent.style.display = "none";
+        });
+
+        document.getElementById('close-settings').addEventListener('click', () => {
+          body.style.backdropFilter = "blur(0px)";
+          settingsContent.style.display = "none";
+          homeContent.style.display = "block";
+        });
 
         document.getElementById('log-profile').addEventListener('click', () => {
             ipcRenderer.send('re-open-login');
@@ -120,6 +91,54 @@ class index {
           }}); 
 
         })
+    }
+
+    async initBD(){
+      const newConfigData = {
+        ram : '2',
+      };
+      dataManager.addData('vuxilaunch_config', newConfigData, (err) => {
+        if (err) {
+          vuxiLogger.error('Error al agregar datos:', err);
+        } else {
+          vuxiLogger.info('Datos agregados con exito.');
+        }
+      });
+    }
+
+    async initSettings() {
+      const ramSlider = document.getElementById('ramSlider');
+      const ramValue = document.getElementById('ramValue');
+      
+      dataManager.getData('vuxilaunch_config', (err, data) => {
+        if (err) {
+          console.error('Error al obtener los datos:', err);
+        } else {
+          if (data && data.ram !== undefined) {
+            const ramValueConfig = data.ram;
+            ramSlider.value = ramValueConfig;
+            ramSlider.setAttribute('max', roundedMaxValue);
+            ramValue.textContent = `${ramValueConfig} GB`;
+            
+            ramSlider.addEventListener('input', () => {
+              const selectedRamGB = ramSlider.value + ' GB';
+              ramValue.textContent = selectedRamGB;
+              const updateRam = {
+                ram: ramSlider.value,
+              };
+              dataManager.updateData('vuxilaunch_config', updateRam, (err) => {
+                if (err) {
+                  vuxiLogger.error('Error al actualizar el archivo JSON:', err);
+                } else {
+                  vuxiLogger.info('Archivo JSON actualizado con éxito.');
+                }
+              });
+            });
+          } else {
+            console.log('El valor de "ram" no se encuentra en los datos.');
+          }
+        }
+      });
     }
 
     async launch(){
@@ -199,6 +218,40 @@ class index {
     });
     })
     }
+
+    async profileSkin() {
+      dataManager.getData('vuxilaunch_profile', (err, data) => {
+        if (err) {
+          console.error('Error al obtener los datos:', err);
+        } else {
+          if (data && data.name !== undefined) {
+            const savedUsername = data.name;
+    
+            const usernameElement = document.getElementById('username');
+    
+            usernameElement.innerHTML = savedUsername;
+    
+            let skinViewer = new skinview3d.SkinViewer({
+              canvas: document.getElementById('skinContainer'),
+              width: 300,
+              height: 400,
+              skin: 'https://minotar.net/skin/' + savedUsername,
+              zoom: 0.8,
+            });
+    
+            skinViewer.loadCape(null);
+    
+            skinViewer.zoom = 1;
+    
+            skinViewer.animation = new skinview3d.WalkingAnimation();
+    
+            skinViewer.animation.speed = 1;
+          } else {
+            console.log('El valor de "username" no se encuentra en los datos.');
+          }
+        }
+      });
+  }
 }
 
 const mainIndex = new index();

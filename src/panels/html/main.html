@@ -15,7 +15,7 @@
     </div>
   
 
-    <div class="home-content" id="home-content" style="display: none;">
+    <div class="home-content" id="home-content">
         <div class="buttons">
     
             <div class="profile" id="profile">
@@ -28,7 +28,7 @@
                 </div>
               </div>
     
-            <div class="settings-btn">
+            <div class="settings-btn" id="settings">
               <div class="image-overlay"></div>
             </div>
     
@@ -44,7 +44,7 @@
     </div>
 
 
-    <div class="container-profile" id="profile-content" style="display: none;">
+    <div class="container-profile" id="profile-content">
         <div class="skin-card">
             <button class="close-button" id="close-profile">X</button>
             <div class="user-info">
@@ -58,30 +58,30 @@
     </div>
 
 
-    <div class="settings-card">
+    <div class="settings-card" id="settings-content">
+        <button class="close-button-settings" id="close-settings">X</button> <!-- Botón de cerrar -->
         <h2>Vuxis Launcher</h2>
-        <p>Opciones:</p>
+        <p class="section-title">Opciones:</p>
         <label>
             <input type="radio" name="launcherOption" value="mantenerAbierto" checked> Mantener el launcher abierto después de abrir Minecraft
         </label>
         <label>
             <input type="radio" name="launcherOption" value="cerrarDespuesDeMinecraft"> Cerrar el launcher después de abrir Minecraft
         </label>
-        <p>Opciones de Java:</p>
+        <p class="section-title">Opciones de Java:</p>
         <label>
             Java:
             <input type="checkbox" id="javaOption" checked>
         </label>
-        <p>Asignación de RAM:</p>
-        <input type="range" id="ramSlider" min="2" max="8" step="1" value="2">
+        <p class="section-title">Asignación de RAM:</p>
+        <input type="range" id="ramSlider" min="2" max="64" step="1" value="2">
         <p>RAM seleccionada: <span id="ramValue">2 GB</span></p>
-        <p>Opciones de Resolución:</p>
+        <p class="section-title">Opciones de Resolución:</p>
         <select id="resolutionOptions">
             <option value="1280x720">1280x720</option>
             <option value="1920x1080">1920x1080</option>
         </select>
     </div>
-
 
     <script src="../lib/skinview3d/skinview3d.bundle.js"></script>
     <script src="../lib/base64/base64.js"></script>

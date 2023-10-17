@@ -7,10 +7,10 @@ process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 class Login{
     async main(){
         this.login();
-        this.bdInit();
+        this.initBD();
     }
 
-    async bdInit(){
+    async initBD(){
         const newDataProfile = {
             access_token :'',
             client_token :'',
