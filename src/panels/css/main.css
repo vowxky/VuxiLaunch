@@ -3,7 +3,10 @@
 
 body {
     background-size: 100% 100vh;
-    background-image: url(../../assets/background/Background.png);
+    background-image: url(../../assets/background/Background.jpg);
+    background-repeat: no-repeat;
+    backdrop-filter: blur(0);
+    transition: backdrop-filter 0.3s;
     margin: 0;
     display: flex;
     justify-content: center;
