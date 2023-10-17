@@ -3,6 +3,10 @@ const { Mojang, Launch } = require('minecraft-java-core');
 const launch = new Launch();
 const vuxiLogger = require('../js/util/logger');
 const dataManager = require('../js/util/vuxiDB');
+const os = require('os');
+const totalMemoryBytes = os.totalmem();
+const totalMemoryGB = totalMemoryBytes / 1073741824; 
+const roundedMaxValue = Math.round(totalMemoryGB);
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
@@ -46,11 +50,22 @@ class index {
         });
     }
     async init() {
+        const ramSlider = document.getElementById('ramSlider');
+
+        ramSlider.setAttribute('max', roundedMaxValue);
+        const ramValue = document.getElementById('ramValue');
         const homeContent = document.getElementById('home-content');
         const body = document.body;
         const profileContent = document.getElementById('profile-content');
 
         vuxiLogger.initLogWindow('Main');
+
+
+        ramSlider.addEventListener('input', () => {
+            const selectedRamGB = ramSlider.value + ' GB';
+            ramValue.textContent = selectedRamGB;
+            console.log('RAM seleccionada:', selectedRamGB);
+        });
 
         document.getElementById('close').addEventListener('click', () => {
             ipcRenderer.send('close-window');

@@ -390,11 +390,11 @@ body {
     text-shadow: rgb(255, 255, 255) 2px 2px 5px;
     font-weight: bold;
     text-align: center;
-    max-width: 200px; /* Ajusta el ancho máximo según tus necesidades */
+    max-width: 200px;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; /* Agregar "..." al final del texto si se desborda */
-    margin-right: 20px; /* Separación entre el texto y el botón */
+    text-overflow: ellipsis;
+    margin-right: 20px;
 }
 
 .log {
@@ -419,4 +419,34 @@ body {
 #skinContainer {
     max-width: 100%;
     display: block;
+}
+
+.settings-card {
+    background-color: #fff;
+    border-radius: 8px;
+    border: 5px solid #000000;
+    color: white;
+    background-color: #15182b;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 400px;
+    text-align: left;
+}
+
+h2 {
+    font-size: 20px;
+    margin-top: 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="checkbox"] {
+    margin-left: 10px;
+}
+
+input[type="range"] {
+    width: 100%;
 }
