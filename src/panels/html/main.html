@@ -74,8 +74,12 @@
             <input type="checkbox" id="javaOption" checked>
         </label>
         <p class="section-title">Asignación de RAM:</p>
-        <input type="range" id="ramSlider" min="2" max="64" step="1" value="2">
-        <p>RAM seleccionada: <span id="ramValue">2 GB</span></p>
+        <div class="range_container">
+            <div class="sliders_control">
+                <input id="minRam" type="range" value="2" min="2" max="64"/>
+                <input id="maxRam" type="range" value="4" min="3" max="64"/>
+            </div>
+        </div>
         <p class="section-title">Opciones de Resolución:</p>
         <select id="resolutionOptions">
             <option value="1280x720">1280x720</option>

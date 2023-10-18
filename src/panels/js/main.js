@@ -95,7 +95,8 @@ class index {
 
     async initBD(){
       const newConfigData = {
-        ram : '2',
+        ramMin : '2',
+        ramMax : '4'
       };
       dataManager.addData('vuxilaunch_config', newConfigData, (err) => {
         if (err) {
@@ -107,26 +108,53 @@ class index {
     }
 
     async initSettings() {
-      const ramSlider = document.getElementById('ramSlider');
-      const ramValue = document.getElementById('ramValue');
-      
+      const minRamSlider = document.getElementById('minRam');
+      const maxRamSlider = document.getElementById('maxRam');
+    
       dataManager.getData('vuxilaunch_config', (err, data) => {
         if (err) {
           console.error('Error al obtener los datos:', err);
         } else {
-          if (data && data.ram !== undefined) {
-            const ramValueConfig = data.ram;
-            ramSlider.value = ramValueConfig;
-            ramSlider.setAttribute('max', roundedMaxValue);
-            ramValue.textContent = `${ramValueConfig} GB`;
-            
-            ramSlider.addEventListener('input', () => {
-              const selectedRamGB = ramSlider.value + ' GB';
-              ramValue.textContent = selectedRamGB;
-              const updateRam = {
-                ram: ramSlider.value,
+          if (data && data.ramMin !== undefined && data.ramMax !== undefined) {
+
+
+            const minRamValueConfig = data.ramMin;
+            const maxRamValueConfig = data.ramMax;
+
+            minRamSlider.value = minRamValueConfig;
+            maxRamSlider.value = maxRamValueConfig;
+            minRamSlider.setAttribute('max', roundedMaxValue);
+            maxRamSlider.setAttribute('max', roundedMaxValue);
+    
+            minRamSlider.addEventListener('input', () => {
+              const minValue = parseInt(minRamSlider.value);
+              const maxValue = parseInt(maxRamSlider.value);
+              if (minValue > maxValue) {
+                minRamSlider.value = maxValue;
+              }
+              const updateRamMin = {
+                ramMin: minRamSlider.value,
               };
-              dataManager.updateData('vuxilaunch_config', updateRam, (err) => {
+              dataManager.updateData('vuxilaunch_config', updateRamMin, (err) => {
+                if (err) {
+                  vuxiLogger.error('Error al actualizar el archivo JSON:', err);
+                } else {
+                  vuxiLogger.info('Archivo JSON actualizado con éxito.');
+                }
+              });
+            });
+    
+            maxRamSlider.addEventListener('input', () => {
+              const minValue = parseInt(minRamSlider.value);
+              const maxValue = parseInt(maxRamSlider.value);
+
+              if (maxValue < minValue) {
+                maxRamSlider.value = minValue;
+              } 
+              const updateRamMax = {
+                ramMax: maxRamSlider.value,
+              };
+              dataManager.updateData('vuxilaunch_config', updateRamMax, (err) => {
                 if (err) {
                   vuxiLogger.error('Error al actualizar el archivo JSON:', err);
                 } else {
@@ -135,7 +163,7 @@ class index {
               });
             });
           } else {
-            console.log('El valor de "ram" no se encuentra en los datos.');
+            console.log('Los valores de "ramMin" y "ramMax" no se encuentran en los datos.');
           }
         }
       });

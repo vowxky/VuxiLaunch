@@ -30,17 +30,33 @@ function getData(filename, callback) {
 }
 
 function updateData(filename, newData, callback) {
-    const filePath = path.join(appdataPath, `${filename}.json`);
-    const jsonData = JSON.stringify(newData);
-  
-    fs.writeFile(filePath, jsonData, (err) => {
+  const filePath = path.join(appdataPath, `${filename}.json`);
+
+  fs.readFile(filePath, (err, data) => {
+    if (err) {
+      callback(err);
+      return;
+    }
+
+    let jsonData = JSON.parse(data); 
+
+    for (const key in newData) {
+      if (newData.hasOwnProperty(key)) {
+        jsonData[key] = newData[key];
+      }
+    }
+
+    const updatedData = JSON.stringify(jsonData);
+
+    fs.writeFile(filePath, updatedData, (err) => {
       if (err) {
         callback(err);
       } else {
         callback(null);
       }
     });
-  }
+  });
+}
 function addData(filename, data, callback) {
     const filePath = path.join(appdataPath, `${filename}.json`);
   
